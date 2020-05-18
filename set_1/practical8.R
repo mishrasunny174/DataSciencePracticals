@@ -1,3 +1,5 @@
+# implement binary search.
+
 binSearch <- function(arr, target) {
   start <- 1
   end <- length(arr)

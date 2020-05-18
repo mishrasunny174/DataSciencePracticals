@@ -23,10 +23,9 @@ ul <- unique(systolic.blood.pressure.Midpoint)
 
 # mean derviation
 print("Term : Mean Deviation")
-for(i in 1:n) {
+for(i in 1:length(ul)) {
   cat(ul[i], " : ", ul[i]-mean) 
 }
-meanDev
 
 # Quartile Deviation
 Q1 = quartile[[1]]

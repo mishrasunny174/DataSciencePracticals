@@ -1,0 +1,309 @@
+---
+title: "Data Science Practicals"
+author: "Sunny Mishra | 2K17/CS/19"
+date: "5/18/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Practical 1
+
+Write a program that prints ‘Hello World’ to the screen.
+
+
+```{r}
+print("hello, world!")
+```
+
+# Practical 2
+
+Write a program that asks the user for a number n and prints the sum of the numbers 1 to n
+
+```{r}
+# n = as.integer(readline("Enter n: "))
+n = 10
+print(paste("Sum =",sum(1:n)))
+```
+
+# Practical 3
+
+Write a program that prints a multiplication table for numbers up to 12.
+
+```{r}
+for(i in 1:12) {
+  print(paste("table of", i))
+  for(j in 1:10) {
+    print(paste(i,"x",j,"=",i*j))
+  }
+  print("")
+}
+```
+
+# Practical 4
+
+Write a function that returns the largest element in a list.
+
+```{r}
+getMaxFromList <- function(l) {
+  return(max(unlist(l)))
+}
+l <- list(c(10,2,1,2,3,9,3,2,4,3,1))
+getMaxFromList(l)
+```
+
+# Practical 5
+
+Write a function that computes the running total of a list.
+
+```{r}
+sumList <- function(l) {
+  return(sum(unlist(l)))
+}
+
+sumList(list(1:20))
+```
+
+# Practical 6
+
+Write a function that tests whether a string is a palindrome.
+
+```{r}
+isPalindrome <- function(str) {
+  library(stringr)
+  str <- unlist(str_split(str, ""))
+  revStr <- rev(str)
+  for(i in 1:length(str)) {
+    if (revStr[i] != str[i]) {
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+}
+isPalindrome("1211")
+```
+
+# Practical 7
+
+Implement linear search.
+
+```{r}
+linSearch <- function(arr, target) {
+  for(el in arr) {
+    if (el == target) {
+      return(TRUE)
+    }
+  }
+  return(FALSE)
+}
+linSearch(1:20, 5)
+```
+
+# Practical 8
+
+Implement binary search.
+
+```{r}
+binSearch <- function(arr, target) {
+  start <- 1
+  end <- length(arr)
+  while(start <= end) {
+    mid <- as.integer((start+end)/2)
+    if(arr[mid] == target) {
+      return(TRUE)
+    }
+    else if(target < arr[mid]) {
+      end <- mid-1
+    } else {
+      start <- mid+1
+    }
+  }
+}
+
+binSearch(1:20, 5)
+```
+
+# Practical 9
+
+Implement matrices addition , subtraction and Multiplication
+
+```{r}
+matrixAdd <- function(A, B) {
+  return(A+B)
+}
+
+matrixSub <- function(A, B) {
+  return(A-B)
+}
+
+matrixMul <- function(A, B) {
+  return(A%*%B)
+}
+
+A <- matrix(1:9, 3, 3)
+B <- matrix(-1:-9, 3, 3)
+
+matrixAdd(A, B)
+matrixSub(A, B)
+matrixMul(A, B)
+```
+
+# Practical 10
+
+Fifteen students were enrolled in a course. There ages were:
+20 20 20 20 20 21 21 21 22 22 22 22 23 23 23\
+i. Find the median age of all students under 22 years\
+ii. Find the median age of all students\
+iii. Find the mean age of all students\
+iv. Find the modal age for all students\
+v. Two more students enter the class. The age of both students is 23. What is now
+mean, mode and median ?
+
+```{r}
+age <- c(rep(20,5),rep(21,3),rep(22,4),rep(23,3))
+
+median(age[age < 22])
+median(age)           
+mean(age)                      
+names(table(age))[table(age)==max(table(age))] 
+
+age = c(age, rep(23, 2))
+
+mean(age)
+median(age)
+names(table(age))[table(age)==max(table(age))]
+```
+
+# Practical 11
+
+Following table gives a frequency distribution of systolic blood pressure. Compute all the measures of dispersion.
+
+|Midpoint|Number|
+|--------|------|
+|95.5    |5     |
+|105.5   |8     |
+|115.5   |22    |
+|125.5   |27    |
+|135.5   |17    |
+|145.5   |9     |
+|155.5   |5     |
+|165.5   |5     |
+|175.5   |2     |
+
+Measures of dispersion:\
+they represent that how much the data is dispersed\
+these are of 2 types: ABSOLUTE & RELATIVE measures of dispersion\
+these can be represented in terms of:
+1. Range
+2. Standered Deviation
+3. Variance
+4. Quartiles and Quartile Deviation
+5. Mean and Mean Deviation
+
+```{r}
+systolic.blood.pressure.Midpoint = c(rep(95.5,5),
+                                  rep(105.5,8),
+                                  rep(115.5,22),
+                                  rep(125.5,27),
+                                  rep(135.5,17),
+                                  rep(145.5,9),
+                                  rep(155.5, 5),
+                                  rep(165.5,5),
+                                  rep(175.5,2))
+# finding range
+range <- c(min(systolic.blood.pressure.Midpoint), max(systolic.blood.pressure.Midpoint))
+range
+meanValue <- mean(systolic.blood.pressure.Midpoint)  # mean
+meanValue
+sd(systolic.blood.pressure.Midpoint) # Standard deviation
+quartile <- quantile(systolic.blood.pressure.Midpoint) # Quartile
+quartile
+
+ul <- unique(systolic.blood.pressure.Midpoint)
+
+# mean derviation
+print("Term : Mean Deviation")
+for(i in 1:length(ul)) {
+  cat(ul[i], " : ", ul[i]-meanValue) 
+}
+
+# Quartile Deviation
+Q1 = quartile[[1]]
+Q3 = quartile[[3]]
+quartileDev = (Q3-Q1)/(Q3+Q1) 
+quartileDev
+```
+
+# Practical 12
+
+Obtain probability distribution of , where X is number of spots showing when a six-sided symmetric die (i.e. all six faces of the die are equally likely) is rolled. Simulate random samples of sizes 40, 70 and 100 respectively and verify the frequency interpretation of probability.
+
+```{r}
+s1 = sample(1:6, 40, replace = TRUE)
+s2 = sample(1:6, 70, replace = TRUE)
+s3 = sample(1:6, 100, replace = TRUE)
+
+probFreq = table(s1)
+probFreq
+probFreq = table(s2)
+probFreq
+probFreq = table(s3)
+probFreq
+```
+
+# Practical 13
+
+Make visual representations of data using the base, lattice, and ggplot2 plotting systems in R, apply basic principles of data graphics to create rich analytic graphics from available datasets.
+
+```{r}
+library(ggplot2)
+
+# random semple
+s1 = sample(1:6, 40, replace = TRUE)
+s2 = sample(1:6, 70, replace = TRUE)
+s3 = sample(1:6, 100, replace = TRUE)
+
+probFreq = table(s1)
+
+probFreqDF  = as.data.frame(probFreq)
+colnames(probFreqDF) = c("Faces", "Frequency")
+
+rel = rank(table(s1))/length(table(s1))
+
+### Plotting
+plot(s1, main = "SCATTER PLOT OF SAMPLE",
+     xlab = "Index",
+     ylab = "Faces of dice")
+barplot(probFreq, main = "BAR PLOT OF SAMPLE",
+        xlab = "Faces of dice",
+        ylab = "Frequency",
+        border = "dark blue",
+        col = gray(1-rel))
+
+points = ggplot(probFreqDF, 
+                aes(x=Faces, y = Frequency)) + geom_point(size = 2)
+
+############################################
+Faces = factor(NULL, levels = probFreqDF$Faces)
+Freq = as.numeric(NULL)
+
+for(i in 1:nrow(probFreqDF)) {
+  faces = as.numeric(probFreqDF$Faces[i])
+  
+  val = rep(faces, as.numeric(probFreqDF$Frequency[i]))
+  Faces = c(Faces, val)
+  Freq = c(Freq, rep(1, as.numeric(probFreqDF$Frequency[i])))
+}
+temp = data.frame(Faces = Faces, Freq = Freq)
+
+#  histogram
+hist = ggplot(temp, aes(x=Faces)) +
+          geom_histogram(binwidth = 0.5)
+
+#################
+
+points
+hist
+```
